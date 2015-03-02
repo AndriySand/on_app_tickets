@@ -7,6 +7,8 @@ gem 'rails', '4.0.2'
 gem 'mysql2'
 gem 'execjs'
 gem 'therubyracer'
+gem 'haml-rails'
+gem 'html2haml'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
