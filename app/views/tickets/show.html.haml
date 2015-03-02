@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b User name:
+  = @ticket.user_name
+%p
+  %b User email:
+  = @ticket.user_email
+%p
+  %b Reference number:
+  = @ticket.reference_number
+%p
+  %b Subject:
+  = @ticket.subject
+%p
+  %b Body:
+  = @ticket.body
+%p
+  %b Status:
+  = @ticket.status
+%p
+  %b Department:
+  = @ticket.department
+
+= link_to 'Edit', edit_ticket_path(@ticket)
+\|
+= link_to 'Back', tickets_path
