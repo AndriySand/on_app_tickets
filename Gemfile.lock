@@ -44,6 +44,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.3.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     haml (4.0.6)
       tilt
     haml-rails (0.8.2)
@@ -150,6 +152,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   execjs
+  faker
   haml-rails
   html2haml
   jbuilder (~> 1.2)
