@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Dear, #{@ticket.user_name}
+    %p
+      We received your enquiry and our department will consider it as soon as possible.
+      Usually it takes 2 - 4 days. When we resolve your question you'll receive another letter.
+      Your enquiry has reference number #{@ticket.reference_number}.
+      %br
+    %p
+      You can review the history of your question at any time if you follow this link: #{link_to 'ticket_history', 'http://localhost:3000' + ticket_history_path(@ticket)}
+    %p Thanks for joining and have a great day!
