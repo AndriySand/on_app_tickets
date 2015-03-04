@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :ticket_history]
 
   # GET /tickets
   # GET /tickets.json
@@ -61,14 +61,29 @@ class TicketsController < ApplicationController
     end
   end
 
+  def ticket_history
+    edits = @ticket.versions.
+      select{|vers| vers.changeset.has_key?('updated_at') && !vers.changeset.has_key?('id')}.
+      map{|vers| vers.changeset}
+    @results = []
+    edits.each do |edit|
+      date = edit.delete('updated_at').last.strftime('%d-%m-%Y %H:%M:%S')
+      edit.each_pair{|key, val| @results << {:field => key, :from => val.first, :to => val.last, :date => date} }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
-      @ticket = Ticket.find(params[:id])
+      @ticket = params[:id].present? ? find_ticket(:id) : find_ticket(:ticket_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
       params.require(:ticket).permit(:user_name, :user_email, :subject, :body, :status, :department)
+    end
+
+    def find_ticket(key)
+      Ticket.find(params[key])
     end
 end
