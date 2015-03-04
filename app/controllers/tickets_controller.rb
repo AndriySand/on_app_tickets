@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy, :ticket_history]
+  before_action :authenticate_user!, only: [:index, :destroy]
 
   # GET /tickets
   # GET /tickets.json
