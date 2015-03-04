@@ -1,0 +1,13 @@
+%h1 History of ticket
+- if @results.any?
+  %ul.changes
+    - @results.each do |res|
+      %li.modify #{res[:date]} - changing #{res[:field]} of the ticket - #{res[:field]} changed from #{res[:from]} to #{res[:to]}
+- else
+  You didn't change the question yet
+
+%h1 Editing ticket
+
+= render 'form'
+
+= link_to 'Show', @ticket
