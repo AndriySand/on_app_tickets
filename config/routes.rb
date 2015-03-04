@@ -1,8 +1,10 @@
 OnAppTickets::Application.routes.draw do
+  devise_for :users
   resources :tickets do
     get 'ticket_history', :as => :history
   end
-
+  
+  root 'tickets#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
