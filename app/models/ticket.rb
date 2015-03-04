@@ -1,6 +1,7 @@
 class Ticket < ActiveRecord::Base
   validates :user_name, :user_email, :subject, :department, :presence => true
   after_create :ensure_reference_number
+  has_paper_trail
 
   def ensure_reference_number
     arr = (0...3).map{[get_string_part, get_hex_number]}.flatten
