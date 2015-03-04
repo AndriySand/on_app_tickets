@@ -11,6 +11,7 @@ gem 'haml-rails'
 gem 'html2haml'
 ruby '2.0.0'
 gem 'paper_trail'
+gem 'devise'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
