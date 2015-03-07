@@ -23,5 +23,9 @@
   = @ticket.department
 
 = link_to 'Edit', edit_ticket_path(@ticket)
-\|
-= link_to 'Back', tickets_path
+%p
+- if current_user
+  = link_to 'Waiting for Staff Responce', tickets_path(:status => 'Waiting for Staff Responce')
+%p
+  = label_tag 'Take responsibilty'
+  = check_box_tag 'manager_id', 'yes', false, {:user_id => current_user.id, :ticket_id => @ticket.id}
