@@ -2,7 +2,7 @@
 - if @results.any?
   %ul.changes
     - @results.each do |res|
-      %li.modify #{res[:date]} - changing #{res[:field]} of the ticket - #{res[:field]} changed from #{res[:from]} to #{res[:to]}
+      %li.modify #{res[:date]} - changing #{res[:field]} of the ticket - #{res[:field]} changed from #{res[:from] || 'none'} to #{res[:to] || 'none'}
 - else
   You didn't change the question yet
 
