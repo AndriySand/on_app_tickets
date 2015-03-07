@@ -22,7 +22,7 @@
   %b Department:
   = @ticket.department
 
-= link_to 'Edit', edit_ticket_path(@ticket)
+= link_to 'view the history of ticket', ticket_history_path(@ticket)
 %p
 - if current_user
   = link_to 'Waiting for Staff Responce', tickets_path(:status => 'Waiting for Staff Responce')
