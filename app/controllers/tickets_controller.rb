@@ -1,11 +1,13 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :ticket_history]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :ticket_history, :take_responsibility]
   before_action :authenticate_user!, only: [:index, :destroy]
 
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    status = params[:status]
+    @tickets = Ticket.where(:status => status)
+    @header = status.is_a?(Array) ? status.join(' and ') : status + ' tickets'
   end
 
   # GET /tickets/1
@@ -30,7 +32,7 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.save
         UserMailer.welcome_email(@ticket).deliver
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to @ticket, notice: 'We received your query and answer you as soon as possible.' }
         format.json { render action: 'show', status: :created, location: @ticket }
       else
         format.html { render action: 'new' }
@@ -74,6 +76,18 @@ class TicketsController < ApplicationController
     end
   end
 
+  def take_responsibility
+    user_id = params[:user_id].to_i
+    if @ticket.manager_id == user_id
+      update_responsible
+      responsib = 'refused take'
+    else
+      update_responsible(user_id)
+      responsib = 'took'
+    end
+    render :text => "You #{responsib} responsibility for this ticket"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
@@ -87,5 +101,9 @@ class TicketsController < ApplicationController
 
     def find_ticket(key)
       Ticket.find(params[key])
+    end
+
+    def update_responsible(user_id = nil)
+      @ticket.update_attribute(:manager_id, user_id)
     end
 end
