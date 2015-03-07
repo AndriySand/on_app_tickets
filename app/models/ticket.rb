@@ -3,6 +3,7 @@ class Ticket < ActiveRecord::Base
   after_create :ensure_reference_number
   has_paper_trail
   belongs_to :manager, :class_name => "User"
+  has_many :replies
 
   def ensure_reference_number
     arr = (0...3).map{[get_string_part, get_hex_number]}.flatten
