@@ -1,4 +1,5 @@
-%h1 Listing tickets
+%h1
+  = @header
 
 %table
   %thead
@@ -29,5 +30,11 @@
         %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-
-= link_to 'New Ticket', new_ticket_path
+%p
+= link_to 'Waiting for staff responce tickets', tickets_path(:status => 'Waiting for Staff Responce')
+%p
+= link_to 'Waiting for customer responce tickets', tickets_path(:status => 'Waiting for Customer')
+%p
+= link_to 'On hold tickets', tickets_path(:status => 'On hold')
+%p
+= link_to 'Cancelled and completed tickets', tickets_path(:status => ['Cancelled', 'Completed'])
