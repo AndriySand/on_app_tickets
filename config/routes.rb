@@ -3,8 +3,9 @@ OnAppTickets::Application.routes.draw do
   resources :tickets do
     get 'ticket_history', :as => :history
     post 'take_responsibility'
+    resources :replies
   end
-  
+
   root 'tickets#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
