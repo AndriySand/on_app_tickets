@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Dear, #{@ticket.user_name}
+    %p
+      Our department considered your enquiry and wants to notify you, that we took this decision:
+      #{@ticket.replies.last.body}
+    %p
+      You can review the history of your question at any time if you follow this link: #{link_to 'ticket_history', 'http://localhost:3000' + ticket_history_path(@ticket)}
