@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304092505) do
+ActiveRecord::Schema.define(version: 20150307154632) do
+
+  create_table "replies", force: true do |t|
+    t.text     "body"
+    t.integer  "author_id"
+    t.integer  "ticket_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tickets", force: true do |t|
     t.string   "user_name"
