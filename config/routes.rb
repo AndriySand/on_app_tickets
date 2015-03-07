@@ -2,6 +2,7 @@ OnAppTickets::Application.routes.draw do
   devise_for :users
   resources :tickets do
     get 'ticket_history', :as => :history
+    post 'take_responsibility'
   end
   
   root 'tickets#new'
