@@ -26,6 +26,16 @@
 %p
 - if current_user
   = link_to 'Waiting for Staff Responce', tickets_path(:status => 'Waiting for Staff Responce')
-%p
-  = label_tag 'Take responsibilty'
-  = check_box_tag 'manager_id', 'yes', false, {:user_id => current_user.id, :ticket_id => @ticket.id}
+  %p
+    = label_tag 'Take responsibilty'
+    = check_box_tag 'manager_id', 'yes', false, {:user_id => current_user.id, :ticket_id => @ticket.id}
+  %h2
+    Give answer to customer
+    = form_for [@ticket, @ticket.replies.build] do |f|
+
+      .field
+        = f.label :body_of_responce
+        = f.text_area :body, :cols => 70
+        = f.hidden_field(:author_id, :value => current_user.id)
+      .actions
+        = f.submit 'Save'
