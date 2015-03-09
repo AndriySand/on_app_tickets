@@ -30,6 +30,9 @@
   %p
     = label_tag 'Change status'
     = select_tag :select_status, options_for_select(Ticket::STATUSES), prompt: @ticket.status, :ticket_id => @ticket.id
+  %p
+    = label_tag 'Create new status for ticket'
+    = text_field_tag :new_status, 'Enter new value for status'
   %h2
     Give answer to customer
     = form_for [@ticket, @ticket.replies.build] do |f|
