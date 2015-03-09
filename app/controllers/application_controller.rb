@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:sign_up) << :name
     end
 
+    def after_sign_in_path_for(user)
+      tickets_path(:status => 'Waiting for Staff Response')
+    end
+
 end
