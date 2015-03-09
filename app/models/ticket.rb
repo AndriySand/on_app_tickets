@@ -4,6 +4,7 @@ class Ticket < ActiveRecord::Base
   has_paper_trail
   belongs_to :manager, :class_name => "User"
   has_many :replies
+  STATUSES = ['Waiting for Staff Response', 'Waiting for Customer', 'On Hold', 'Cancelled', 'Completed']
 
   def ensure_reference_number
     arr = (0...3).map{[get_string_part, get_hex_number]}.flatten
