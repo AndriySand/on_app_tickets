@@ -21,4 +21,8 @@ class Ticket < ActiveRecord::Base
   	SecureRandom.hex(1).upcase
   end
 
+  searchable do
+    text :subject, :boost => 5
+    text :reference_number, :body
+  end
 end
