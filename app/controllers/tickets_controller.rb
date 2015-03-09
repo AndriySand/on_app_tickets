@@ -7,8 +7,17 @@ class TicketsController < ApplicationController
   # GET /tickets.json
   def index
     status = params[:status]
-    @tickets = Ticket.where(:status => status)
-    @header = status.is_a?(Array) ? status.join(' and ') : status + ' tickets'
+    if status
+      @tickets = Ticket.where(:status => status)
+      @header = status.is_a?(Array) ? status.join(' and ') : status + ' tickets'
+    elsif params[:search].present?
+      @search = Ticket.search do
+        fulltext params[:search]
+      end
+      @tickets = @search.results
+    else
+      @tickets = Ticket.all
+    end
   end
 
   # GET /tickets/1
