@@ -16,6 +16,9 @@ gem 'faker'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+group :production do
+  gem 'pg', '0.15.1'
+end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
