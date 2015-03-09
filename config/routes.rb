@@ -4,6 +4,7 @@ OnAppTickets::Application.routes.draw do
     get 'ticket_history', :as => :history
     post 'take_responsibility'
     resources :replies
+    post 'change_status'
   end
 
   root 'tickets#new'
