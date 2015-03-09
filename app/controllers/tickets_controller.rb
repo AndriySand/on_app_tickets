@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :ticket_history, :take_responsibility]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :ticket_history,
+                                    :take_responsibility, :change_status]
   before_action :authenticate_user!, only: [:index, :destroy]
 
   # GET /tickets
@@ -46,6 +47,7 @@ class TicketsController < ApplicationController
   def update
     respond_to do |format|
       if @ticket.update(ticket_params)
+        @ticket.update_responsible(:status, 'Waiting for Staff Response')
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,13 +81,18 @@ class TicketsController < ApplicationController
   def take_responsibility
     user_id = params[:user_id].to_i
     if @ticket.manager_id == user_id
-      update_responsible
+      update_responsible(:manager_id)
       responsib = 'refused take'
     else
-      update_responsible(user_id)
+      update_responsible(:manager_id, user_id)
       responsib = 'took'
     end
     render :text => "You #{responsib} responsibility for this ticket"
+  end
+
+  def change_status
+    update_responsible(:status, params[:status])
+    render :text => "Status changed successfully"
   end
 
   private
@@ -103,7 +110,7 @@ class TicketsController < ApplicationController
       Ticket.find(params[key])
     end
 
-    def update_responsible(user_id = nil)
-      @ticket.update_attribute(:manager_id, user_id)
+    def update_responsible(key, value = nil)
+      @ticket.update_attribute(key, value)
     end
 end
