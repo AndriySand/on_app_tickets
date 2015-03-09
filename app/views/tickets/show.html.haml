@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b User name:
   = @ticket.user_name
@@ -25,10 +23,13 @@
 = link_to 'view the history of ticket', ticket_history_path(@ticket)
 %p
 - if current_user
-  = link_to 'Waiting for Staff Responce', tickets_path(:status => 'Waiting for Staff Responce')
+  = link_to 'Waiting for Staff Response', tickets_path(:status => 'Waiting for Staff Response')
   %p
     = label_tag 'Take responsibilty'
     = check_box_tag 'manager_id', 'yes', false, {:user_id => current_user.id, :ticket_id => @ticket.id}
+  %p
+    = label_tag 'Change status'
+    = select_tag :select_status, options_for_select(Ticket::STATUSES), prompt: @ticket.status, :ticket_id => @ticket.id
   %h2
     Give answer to customer
     = form_for [@ticket, @ticket.replies.build] do |f|
