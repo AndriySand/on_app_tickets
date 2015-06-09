@@ -15,6 +15,8 @@ gem 'devise'
 gem 'faker'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'capistrano'
+gem 'capistrano-passenger'
 
 group :production do
   gem 'pg', '0.15.1'
